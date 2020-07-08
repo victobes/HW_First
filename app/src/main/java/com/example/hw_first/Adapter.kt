@@ -1,7 +1,6 @@
 package com.example.hw_first
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -15,7 +14,7 @@ import com.example.hw_first.Models.StudentInfo
 
 class Adapter(private var items: List<Any>) : RecyclerView.Adapter<ViewHolder>() {
 
-    override fun getItemViewType(position: Int) =
+    override fun getItemViewType(position: Int): Int =
         when (position) {
             0 -> 0
             1 -> 1
@@ -44,5 +43,4 @@ class Adapter(private var items: List<Any>) : RecyclerView.Adapter<ViewHolder>()
 
     override fun getItemCount(): Int =
         items.count()
-
 }
