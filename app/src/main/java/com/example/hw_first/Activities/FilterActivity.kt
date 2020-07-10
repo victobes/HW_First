@@ -24,7 +24,7 @@ class FilterActivity : AppCompatActivity() {
                 .filters.map { it.state }.toBooleanArray()
         )
         outState.putIntArray(
-            "nowFilter",
+            "checkFilter",
             filter.toIntArray()
         )
     }
@@ -56,7 +56,7 @@ class FilterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_filter)
 
         val toFilter = intent.getFloatArrayExtra("sendToFilter")!!
-        val nowFilter = intent.getBooleanArrayExtra("nowFilter")!!
+        val nowFilter = intent.getBooleanArrayExtra("checkFilter")!!
         filter = toFilter.filterIndexed { index, _ -> nowFilter[index] }.map { it.toInt() }
 
         val adapter =
@@ -73,6 +73,7 @@ class FilterActivity : AppCompatActivity() {
     }
 
     override fun onStart() {
+
         checkbox_all.setOnCheckedChangeListener { _, b ->
             val adapter =
                 FilterAdapter(
@@ -94,7 +95,7 @@ class FilterActivity : AppCompatActivity() {
             (filter_recycler.adapter as FilterAdapter)
                 .filters.filter { it.state }.map { it.experience.toInt() }.toIntArray()
         )
-        Log.d("kek", filter.size.toString())
+        Log.d("kek", filter.toString())
     }
 
     override fun onBackPressed() {

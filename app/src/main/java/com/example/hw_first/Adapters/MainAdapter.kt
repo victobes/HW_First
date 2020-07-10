@@ -17,7 +17,7 @@ import com.example.hw_first.Models.StudentInfo
 import com.example.hw_first.R
 import kotlinx.android.synthetic.main.header_skills.view.*
 
-class MainAdapter(private var items: List<Any>, private val filter: List<Boolean>) :
+class MainAdapter(private var items: List<Any>, private val filters: List<Boolean>) :
     RecyclerView.Adapter<ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int =
@@ -46,7 +46,7 @@ class MainAdapter(private var items: List<Any>, private val filter: List<Boolean
             2 -> (holder as SkillHeaderHolder).view.apply {
 
                 filter_image_button.setOnClickListener {
-                    if (filter.contains(false))
+                    if (filters.contains(false))
                         filter_image_button.setImageResource(R.drawable.filter_checked_icon)
 
                     val intent = Intent(it.context, FilterActivity::class.java)
@@ -62,8 +62,8 @@ class MainAdapter(private var items: List<Any>, private val filter: List<Boolean
                     )
 
                     intent.putExtra(
-                        "nowFilter",
-                        filter.toBooleanArray()
+                        "checkFilter",
+                        filters.toBooleanArray()
                     )
                     (it.context as MainActivity).startActivityForResult(intent, 0)
                 }
@@ -74,4 +74,14 @@ class MainAdapter(private var items: List<Any>, private val filter: List<Boolean
 
     override fun getItemCount(): Int =
         items.count()
+
+    private val List<Any>.available
+        get() = filterIndexed { index, _ ->
+            (index < 3) or filters.run {
+                if (this.isNotEmpty() and (index >= 3))
+                    get(index - 3)
+                else
+                    true
+            }
+        }
 }
