@@ -1,4 +1,4 @@
-package com.example.hw_first
+package com.example.hw_first.Utils
 
 import android.graphics.Rect
 import android.view.View

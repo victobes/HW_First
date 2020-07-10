@@ -13,12 +13,13 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/student_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_margin="10dp"
-            android:src="@drawable/student_image"/>
+            android:src="@drawable/student_image"
+            app:shapeAppearanceOverlay="@style/shapeableImageView"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -49,7 +50,8 @@
                 android:text="@string/button_github"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimary"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                app:strokeColor="@color/colorPrimary"/>
 
         </LinearLayout>
     </LinearLayout>

@@ -1,9 +1,12 @@
-package com.example.hw_first
+package com.example.hw_first.Adapters
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.example.hw_first.Activities.FilterActivity
+import com.example.hw_first.Activities.MainActivity
 import com.example.hw_first.Holders.ProjectInfoHolder
 import com.example.hw_first.Holders.SkillHeaderHolder
 import com.example.hw_first.Holders.SkillInfoHolder
@@ -11,8 +14,11 @@ import com.example.hw_first.Holders.StudentInfoHolder
 import com.example.hw_first.Models.ProjectInfo
 import com.example.hw_first.Models.SkillInfo
 import com.example.hw_first.Models.StudentInfo
+import com.example.hw_first.R
+import kotlinx.android.synthetic.main.header_skills.view.*
 
-class Adapter(private var items: List<Any>) : RecyclerView.Adapter<ViewHolder>() {
+class MainAdapter(private var items: List<Any>, private val filter: List<Boolean>) :
+    RecyclerView.Adapter<ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int =
         when (position) {
@@ -37,6 +43,31 @@ class Adapter(private var items: List<Any>) : RecyclerView.Adapter<ViewHolder>()
         when (getItemViewType(position)) {
             0 -> (holder as StudentInfoHolder).bind(items[position] as StudentInfo)
             1 -> (holder as ProjectInfoHolder).bind(items[position] as ProjectInfo)
+            2 -> (holder as SkillHeaderHolder).view.apply {
+
+                filter_image_button.setOnClickListener {
+                    if (filter.contains(false))
+                        filter_image_button.setImageResource(R.drawable.filter_checked_icon)
+
+                    val intent = Intent(it.context, FilterActivity::class.java)
+                    intent.putExtra(
+                        "sendToFilter",
+                        items
+                            .slice(3 until items.count())
+                            .map { item ->
+                                (item as SkillInfo).studentExperience
+                            }
+                            .distinct()
+                            .toFloatArray()
+                    )
+
+                    intent.putExtra(
+                        "nowFilter",
+                        filter.toBooleanArray()
+                    )
+                    (it.context as MainActivity).startActivityForResult(intent, 0)
+                }
+            }
             3 -> (holder as SkillInfoHolder).bind(items[position] as SkillInfo)
         }
     }
