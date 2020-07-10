@@ -73,7 +73,6 @@ class FilterActivity : AppCompatActivity() {
     }
 
     override fun onStart() {
-
         checkbox_all.setOnCheckedChangeListener { _, b ->
             val adapter =
                 FilterAdapter(

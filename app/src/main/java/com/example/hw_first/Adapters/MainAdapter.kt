@@ -45,10 +45,9 @@ class MainAdapter(private var items: List<Any>, private val filters: List<Boolea
             1 -> (holder as ProjectInfoHolder).bind(items[position] as ProjectInfo)
             2 -> (holder as SkillHeaderHolder).view.apply {
 
-                filter_image_button.setOnClickListener {
-                    if (filters.contains(false))
-                        filter_image_button.setImageResource(R.drawable.filter_checked_icon)
+                if (filters.contains(false)) filter_image_button.setImageResource(R.drawable.filter_checked_icon)
 
+                filter_image_button.setOnClickListener {
                     val intent = Intent(it.context, FilterActivity::class.java)
                     intent.putExtra(
                         "sendToFilter",

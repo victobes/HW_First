@@ -62,6 +62,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadMainAdapter() {
+
+        var filtredStudentSkills = studentSkills.map { (it.studentExperience.toInt() in filters) }
+        Log.d("dumpling", filtredStudentSkills.toString())
+
         val adapter =
             MainAdapter(
                 listOf(
@@ -69,7 +73,7 @@ class MainActivity : AppCompatActivity() {
                     ProjectInfo("Спойлер: у нашей команды уже появилась идея проекта.\n" + "Что касается моей изначальной идеи, то я хотела сделать приложение про города \"Золотого кольца\", чтобы поддержать внутренний туризм, так как сейчас все границы закрыты, а люди хотят увидеть что-то новое и сменить атмосферу после удаленки.\n" + "Идея, которая родилась в ходе обсуждения с командой: сделать приложение с маршрутами для электротранспорта (возможность прокладывать маршруты по городу, избегать разбитых дорог, составлять кастомные маршруты). Сейчас популярность электротранспорта набирает обороты, поэтому достаточно актуально."),
                     SkillFilter()
                 ) + studentSkills,
-                studentSkills.map { (it.studentExperience.toInt() in filters) }
+                filtredStudentSkills
             )
 
         main_recycler.adapter = adapter
